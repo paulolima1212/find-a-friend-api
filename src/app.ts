@@ -8,7 +8,7 @@ import { ZodError } from 'zod'
 import { env } from './env'
 import fastifyMultipart from '@fastify/multipart'
 import { orgsRoutes } from './http/controllers/orgs/routes'
-import { find } from './http/controllers/orgs/find-orgs'
+import { find } from './http/controllers/orgs/find'
 import { petsRoutes } from './http/controllers/pets/routes'
 
 export const app = fastify()

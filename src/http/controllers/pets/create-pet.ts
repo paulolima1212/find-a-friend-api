@@ -2,7 +2,7 @@ import { makeCreatePetUseCase } from '@/use-case/factories/make-create-pet-use-c
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function register(request: FastifyRequest, replay: FastifyReply) {
+export async function register(request: FastifyRequest, reply: FastifyReply) {
   const createPetBodySchema = z.object({
     name: z.string(),
     age: z.number(),
@@ -11,14 +11,10 @@ export async function register(request: FastifyRequest, replay: FastifyReply) {
     characteristics: z.string().array(),
   })
 
-  const createPetParamsSchema = z.object({
-    org_id: z.string().uuid(),
-  })
-
   const { age, is_adopted, name, type, characteristics } =
     createPetBodySchema.parse(request.body)
 
-  const { org_id } = createPetParamsSchema.parse(request.params)
+  const org_id = request.user.sub
 
   const createPet = makeCreatePetUseCase()
 
@@ -31,5 +27,5 @@ export async function register(request: FastifyRequest, replay: FastifyReply) {
     characteristics,
   })
 
-  return replay.status(201).send(pet)
+  return reply.status(201).send(pet)
 }

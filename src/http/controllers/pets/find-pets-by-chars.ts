@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 export async function findByChars(
   request: FastifyRequest,
-  replay: FastifyReply
+  reply: FastifyReply
 ) {
   const findByCharsBodySchema = z.object({
     char: z.string().array(),
@@ -14,7 +14,7 @@ export async function findByChars(
 
   const findByCharsUseCase = makeFindPetsByCharsUseCase()
 
-  const pets = findByCharsUseCase.execute({ char })
+  const pets = await findByCharsUseCase.execute({ char })
 
-  return replay.status(200).send(pets)
+  return reply.status(200).send(pets)
 }

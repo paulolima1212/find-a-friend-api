@@ -8,6 +8,13 @@ CREATE TYPE "Role" AS ENUM ('ADMIN', 'MEMBER');
 CREATE TABLE "pets" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "age" DECIMAL(65,30) NOT NULL,
+    "type" "Type" NOT NULL,
+    "is_adopted" BOOLEAN NOT NULL DEFAULT false,
+    "energy" TEXT,
+    "weight" TEXT,
+    "independency" TEXT,
+    "characteristics" TEXT[],
     "org_id" TEXT,
 
     CONSTRAINT "pets_pkey" PRIMARY KEY ("id")
@@ -18,13 +25,13 @@ CREATE TABLE "orgs" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
     "cep" TEXT NOT NULL,
     "street" TEXT NOT NULL,
     "district" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
-    "type" "Type" NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'MEMBER',
 
     CONSTRAINT "orgs_pkey" PRIMARY KEY ("id")

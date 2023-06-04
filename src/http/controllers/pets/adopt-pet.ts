@@ -3,7 +3,7 @@ import { makeFindPetByIdUseCase } from '@/use-case/factories/make-find-pet-by-id
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function adopt(request: FastifyRequest, replay: FastifyReply) {
+export async function adopt(request: FastifyRequest, reply: FastifyReply) {
   const adoptParamsSchema = z.object({
     id: z.string().uuid(),
   })
@@ -16,10 +16,10 @@ export async function adopt(request: FastifyRequest, replay: FastifyReply) {
   const existsPet = findPetById.execute({ id })
 
   if (!existsPet) {
-    return replay.status(404).send({ message: 'Pet not found' })
+    return reply.status(404).send({ message: 'Pet not found' })
   }
 
   const pet = adoptUseCase.execute({ id })
 
-  return replay.status(200).send(pet)
+  return reply.status(200).send(pet)
 }

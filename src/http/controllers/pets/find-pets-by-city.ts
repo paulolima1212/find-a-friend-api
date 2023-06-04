@@ -2,10 +2,7 @@ import { makeFindPetsByCityUseCase } from '@/use-case/factories/make-find-pets-b
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export async function findByCity(
-  request: FastifyRequest,
-  replay: FastifyReply
-) {
+export async function findByCity(request: FastifyRequest, reply: FastifyReply) {
   const findByCityParamsSchema = z.object({
     city: z.coerce.string(),
   })
@@ -16,5 +13,5 @@ export async function findByCity(
 
   const pets = await findPetsByCity.execute({ city })
 
-  return replay.status(200).send(pets)
+  return reply.status(200).send(pets)
 }

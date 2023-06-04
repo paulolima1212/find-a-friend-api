@@ -1,9 +1,11 @@
 import { OrgRepository } from '@/repositories/org-repository'
 import { Org } from '@prisma/client'
+import { hash } from 'bcryptjs'
 
 interface CreateAOrgUseCaseRequest {
   name: string
   email: string
+  password: string
   cep: string
   street: string
   district: string
@@ -28,12 +30,16 @@ export class CreateAOrgUseCase {
     phone,
     state,
     street,
+    password,
   }: CreateAOrgUseCaseRequest): Promise<CreateAOrgUseCaseResponse> {
+    const passwordHash = await hash(password, 6)
+
     const org = await this.orgRepository.create({
       cep,
       city,
       district,
       email,
+      password: passwordHash,
       name,
       phone,
       state,

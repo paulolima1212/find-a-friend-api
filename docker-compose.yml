@@ -10,13 +10,13 @@ services:
       - POSTGRESQL_PASSWORD=docker
       - POSTGRESQL_DATABASE=apifindafriend
 
-  api:
-    build: ./
-    ports:
-      - '3333:3333'
-    command: npm run dev
-    volumes:
-      - ./:/app
-    restart: always
-    depends_on:
-      - api-find-a-friend
+  # api:
+  #   build: ./
+  #   ports:
+  #     - '3333:3333'
+  #   command: npm run dev
+  #   volumes:
+  #     - ./:/app
+  #   restart: always
+  #   depends_on:
+  #     - api-find-a-friend

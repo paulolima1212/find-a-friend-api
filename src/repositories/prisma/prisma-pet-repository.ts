@@ -35,15 +35,18 @@ export class PrismaPetRepository implements PetRepository {
     return pets
   }
 
-  async findByChar(chars: string) {
-    const pets = await prisma.pet.findMany({
-      where: {
-        characteristics: {
-          has: chars,
-        },
-      },
-    })
+  async findByChar(chars: string[]) {
+    let pets = [] as Pet[]
 
+    for await (const char of chars) {
+      pets = await prisma.pet.findMany({
+        where: {
+          characteristics: {
+            has: char,
+          },
+        },
+      })
+    }
     return pets
   }
 
