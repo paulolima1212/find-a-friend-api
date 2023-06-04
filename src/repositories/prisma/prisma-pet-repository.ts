@@ -46,4 +46,17 @@ export class PrismaPetRepository implements PetRepository {
 
     return pets
   }
+
+  async adopt(id: string) {
+    const pet = await prisma.pet.update({
+      where: {
+        id,
+      },
+      data: {
+        is_adopted: true,
+      },
+    })
+
+    return pet
+  }
 }
