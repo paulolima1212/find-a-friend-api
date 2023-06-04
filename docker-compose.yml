@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  api-find-a-friend:
+    image: bitnami/postgresql
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=apifindafriend
+
+  api:
+    build: ./
+    ports:
+      - '3333:3333'
+    command: npm run dev
+    volumes:
+      - ./:/app
+    restart: always
+    depends_on:
+      - api-find-a-friend
